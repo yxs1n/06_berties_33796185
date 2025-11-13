@@ -18,7 +18,7 @@ For example:
   - Atlas of the World
 
 ### Register
-New users can register an account by filling in their details, which are stored in the database.
+New users can register an account by filling in their details.
 
 ### List All Books
 Displays every book stored in the database with:
