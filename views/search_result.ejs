@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Search Results</title>
+        <link rel="stylesheet"  type="text/css" href="/main.css" />
+    </head>
+    <body>
+        <h1><%=shopData.shopName%> Shop</h1>
+        <h2>Search Results:</h2>
+        <!-- List of available books matching the search -->
+        <ul>
+            <!-- Iterate through the available books and list each one with price -->
+            <% availableBooks.forEach(function(book) { %>
+                <li><strong><%= book.name %></strong> - £<%= book.price %></li>
+            <% }); %>
+        </ul>
+    </body>
+</html>
