@@ -9,8 +9,9 @@ router.get('/search',function(req, res, next){
 
 router.post('/search_result', function (req, res, next) {
     //searching in the database
-    let sqlquery = 'SELECT * FROM books WHERE name = ?';
-    let searchterm = [req.body.search_text];
+    let sqlquery = 'SELECT * FROM books WHERE name LIKE ?';
+    //adding % wildcard to search term (advanced search)
+    let searchterm = ['%' + req.body.search_text + '%'];
     db.query(sqlquery, searchterm, (err, result) => {
         if (err) {
             next(err);

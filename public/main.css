@@ -41,3 +41,14 @@ a:link {
     text-decoration: none;
     padding:5px;
   }
+
+  /* Styling for unordered lists */
+  ul {
+    list-style-type: square;
+    background-color: grey;
+    padding: 10px;
+    width: 300px;
+    border: 2px solid black;
+    border-radius: 5px;
+    color: white;
+  }
