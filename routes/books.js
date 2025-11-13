@@ -19,7 +19,28 @@ router.get('/list', function (req, res, next) {
         if (err) {
             next(err);
         }
-        res.send(result);
+        res.render('list.ejs', {availableBooks: result});
+    });
+});
+
+// Add book routes
+router.get('/addbook', function (req, res, next) {
+    // Display the add book form
+    res.render('addbook.ejs');
+});
+// Handle the form submission
+router.post('/bookadded', function (req, res, next) {
+    //saving data in database
+    let sqlquery = 'INSERT INTO books (name, price) VALUES (?, ?)';
+    //execute sql query
+    let newrecord = [req.body.name, req.body.price];
+    db.query(sqlquery, newrecord, (err, result) => {
+        if (err) {
+            next(err);
+        }else {
+            // Confirmation message
+            res.send('This book has been added: ' + req.body.name + ' for £' + req.body.price);
+        }
     });
 });
 
