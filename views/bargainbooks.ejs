@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Available Bargain Books</title>
+        <link rel="stylesheet"  type="text/css" href="/main.css" />
+    </head>
+    <body>
+        <h1><%=shopData.shopName%> Shop</h1>
+        <h2>Here are the books that we sell costing no more than £20!</h2>
+        <!-- List of available books -->
+        <ul>
+            <!-- Iterate through the available books and list each one with price -->
+            <% availableBooks.forEach(function(book) { %>
+                <li><strong><%= book.name %></strong> - £<%= book.price %></li>
+            <% }); %>
+        </ul>
+    </body>
+</html>
