@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Audit Log</title>
+        <link rel="stylesheet"  type="text/css" href="/main.css" />
+    </head>
+    <body>
+        <h1><%=shopData.shopName%> Shop</h1>
+        <h2>Audit Log:</h2>
+        <!-- List of audit log entries -->
+         <ul>
+            <!-- Iterate through the audit log entries and list each one -->
+            <% auditLog.forEach(function(entry) { %>
+                <li><strong><%= entry.attempt_time %></strong> <br> - User: <%= entry.username %> <br> - Success [1 = Success | 0 = Failed]: <%= entry.success %></li>
+            <% }); %>
+         </ul>
+        
+    </body>
+</html>
