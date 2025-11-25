@@ -11,7 +11,7 @@
          <ul>
             <!-- Iterate through the audit log entries and list each one -->
             <% auditLog.forEach(function(entry) { %>
-                <li><strong><%= entry.attempt_time %></strong> <br> - User: <%= entry.username %> <br> - Success [1 = Success | 0 = Failed]: <%= entry.success %></li>
+                <li><strong><%= entry.attempt_time %></strong> <br> - User: <%= entry.username %> <br> - Success [1 = Success | 0 = Failed]: <strong> <%= entry.success %></strong></li>
             <% }); %>
          </ul>
         
