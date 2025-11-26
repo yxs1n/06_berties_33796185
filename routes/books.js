@@ -3,6 +3,14 @@ const e = require("express");
 const express = require("express")
 const router = express.Router()
 
+const redirectLogin = (req, res, next) => {
+    if (!req.session.userId) {
+        res.redirect('/users/login'); // redirect to login page
+    } else {
+        next(); // move to the next middleware function
+    }
+}
+
 router.get('/search',function(req, res, next){
     res.render("search.ejs")
 });
@@ -32,7 +40,7 @@ router.get('/list', function (req, res, next) {
 });
 
 // Add book routes
-router.get('/addbook', function (req, res, next) {
+router.get('/addbook', redirectLogin, function (req, res, next) {
     // Display the add book form
     res.render('addbook.ejs');
 });
@@ -52,7 +60,7 @@ router.post('/bookadded', function (req, res, next) {
     });
 });
 
-router.get('/bargainbooks', function (req, res, next) {
+router.get('/bargainbooks', redirectLogin, function (req, res, next) {
     // Only show books priced under £20
     let sqlquery = 'SELECT * FROM books WHERE price < 20.00';
     db.query(sqlquery, (err, result) => {

@@ -11,6 +11,14 @@ bcrypt.hash(defaultPassword, 10, (err, hash) => {
     console.log(hash);
 });
 
+const redirectLogin = (req, res, next) => {
+    if (!req.session.userId) {
+        res.redirect('./login'); // redirect to login page
+    } else {
+        next(); // move to the next middleware function
+    }
+}
+
 
 
 router.get('/register', function (req, res, next) {
@@ -41,7 +49,7 @@ router.post('/registered', function (req, res, next) {
 }); 
 
 // List all registered users
-router.get('/list', function (req, res, next) {
+router.get('/list', redirectLogin, function (req, res, next) {
     let sqlquery = 'SELECT * FROM users';
     
     db.query(sqlquery, (err, result) => {
@@ -87,6 +95,7 @@ router.post('/loggedin', function (req, res, next) {
                 if (passwordMatch) {
                     // Log successful attempt
                     logAttempt(username, true);
+                    req.session.userId = req.body.username; // set session userId
                     res.send('Login successful! Welcome back, ' + result[0].firstName);
                 } else {
                     // Log failed attempt
@@ -99,7 +108,7 @@ router.post('/loggedin', function (req, res, next) {
 });
 
 //audit log route
-router.get('/audit', function (req, res, next) {
+router.get('/audit', redirectLogin, function (req, res, next) {
     let sqlquery = 'SELECT * FROM audit_log ORDER BY attempt_time DESC';
 
     db.query(sqlquery, (err, result) => {
