@@ -164,3 +164,30 @@ In `auditlog.ejs`, all records are displayed in a table:
 ```
 
 This allows administrators to **see all login activity**, including failed attempts, in a readable format.
+
+---
+
+## Authorisation
+
+- Log in required to access bargain books route as it can be seen as an exclusive feature for members
+- Log in required to see fellow registered users
+- Log in required to view audit log
+
+## Validation
+
+I have added validation to:
+
+- Every field in register form
+- Search books field to make sure input is not empty
+- Both fields in add book page to make sure values are inputted as expected
+
+## Task 5
+
+The script is run because the registration confirmation page is vulnerable to reflected XSS. My code takes the user input and sends it straight back into the HTML response without escaping. 
+
+## Sanitisation
+
+- Added to First Name, Last Name and Password as those inputs are displayed on the registration confirmation page
+- Email field does not require sanitisation as express-validator only accepts email inputs
+- Name of book in add book route as it displays the name of book you have chosen to add
+- Price in add book route does not require sanitisation as validator only accepts float values anyways
