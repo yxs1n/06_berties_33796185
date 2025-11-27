@@ -3,6 +3,8 @@ const express = require("express")
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const saltRounds = 10;
+const {check, validationResult} = require('express-validator');
+
 
 // For default login
 const defaultPassword = 'smiths';
@@ -21,31 +23,37 @@ const redirectLogin = (req, res, next) => {
 
 
 
+
 router.get('/register', function (req, res, next) {
     res.render('register.ejs')
 });
 
-router.post('/registered', function (req, res, next) {
-    // saving data in database
-    const plainPassword = req.body.password;
-    bcrypt.hash(plainPassword, saltRounds, function(err, hash) {
-        // Store hash in your password DB.
-        let sqlquery = 'INSERT INTO users (firstName, lastName, email, username, hashedPassword) VALUES (?, ?, ?, ?, ?)';
-        // execute sql query
-        let newrecord = [req.body.first, req.body.last, req.body.email, req.body.username, hash];
-        db.query(sqlquery, newrecord, (err, result) => {
-            if (err) {
-                res.send('Error registering user: ' + err);
-                next(err);
-            } else {
-                console.log('User registered: ' + req.body.username);
-                 // Confirmation message
-                result = 'Hello ' + req.body.first + ' ' + req.body.last + ', you are now registered! We will send an email to you at ' + req.body.email
-                result += ' Your password is: ' + plainPassword + ' and your hashed password is: ' + hash
-                res.send(result);
-            }
-        });        
-    });
+router.post('/registered', [check('first').notEmpty(), check('last').notEmpty(), check('email').isEmail(), check('username').isLength({min: 5, max: 20}), check('password').isLength({min: 5})], function (req, res, next) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.send('There were validation errors: ' + JSON.stringify(errors.array()) + '<br><a href="/users/register">Go back to registration</a>');
+    }else {
+        // saving data in database
+        const plainPassword = req.body.password;
+        bcrypt.hash(plainPassword, saltRounds, function(err, hash) {
+            // Store hash in your password DB.
+            let sqlquery = 'INSERT INTO users (firstName, lastName, email, username, hashedPassword) VALUES (?, ?, ?, ?, ?)';
+            // execute sql query
+            let newrecord = [req.body.first, req.body.last, req.body.email, req.body.username, hash];
+            db.query(sqlquery, newrecord, (err, result) => {
+                if (err) {
+                    res.send('Error registering user: ' + err);
+                    next(err);
+                } else {
+                    console.log('User registered: ' + req.body.username);
+                    // Confirmation message
+                    result = 'Hello ' + req.sanitize(req.body.first) + ' ' + req.sanitize(req.body.last) + ', you are now registered! We will send an email to you at ' + req.body.email
+                    result += ' Your password is: ' + req.sanitize(plainPassword) + ' and your hashed password is: ' + hash
+                    res.send(result);
+                }
+            });        
+        });
+    }
 }); 
 
 // List all registered users

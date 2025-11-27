@@ -6,12 +6,17 @@ var mysql = require('mysql2')
 var session = require('express-session')
 require('dotenv').config();
 
+const expressSanitizer = require('express-sanitizer');
+
 // Create the express application object
 const app = express()
 const port = 8000
 
 // Tell Express that we want to use EJS as the templating engine
 app.set('view engine', 'ejs')
+
+// Use the express-sanitizer middleware
+app.use(expressSanitizer());
 
 // Set up the body parser 
 app.use(express.urlencoded({ extended: true }))
