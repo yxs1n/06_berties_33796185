@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Live Weather</title>
+        <link rel="stylesheet"  type="text/css" href="/main.css" />
+    </head>
+    <body>
+        <h1>Live Weather</h1>
+        <ul class="weather-list">
+            <li id="city-name"><%=city%></li>
+            <li id="weather-item">Temperature: <%=weather.main.temp%> °C</li>
+            <li id="weather-item">Feels Like: <%=weather.main.feels_like%> °C</li>
+            <li id="weather-item">Humidity: <%=weather.main.humidity%> %</li>
+            <li id="weather-item">Weather: <%=weather.weather[0].description%></li>
+            <li id="weather-item">Wind Speed: <%=weather.wind.speed%> m/s</li>
+            <li id="weather-item">Wind Direction: <%=weather.wind.deg%> degrees</li>
+        </ul>
+        <ul>
+            <!-- Form to get weather for a different city -->
+            <form method="post" action="weather">
+                What city do you want the weather for?
+                <input id="city" type="text" name="city" />
+                <input type="submit" value="Get Weather" />
+            </form>
+        </ul>
+    </body>
+</html>

@@ -7,6 +7,7 @@ var session = require('express-session')
 require('dotenv').config();
 
 const expressSanitizer = require('express-sanitizer');
+const request = require('request');
 
 // Create the express application object
 const app = express()
