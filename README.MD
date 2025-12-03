@@ -191,3 +191,71 @@ The script is run because the registration confirmation page is vulnerable to re
 - Email field does not require sanitisation as express-validator only accepts email inputs
 - Name of book in add book route as it displays the name of book you have chosen to add
 - Price in add book route does not require sanitisation as validator only accepts float values anyways
+
+## 📘 API Query Features
+
+The `GET /api/books` endpoint supports **search**, **price filtering**, and **sorting** using URL query parameters.
+
+---
+
+### 🔍 1. Search by Keyword
+
+Search for books whose **name contains** a specific term.
+
+**Example:**
+GET http://localhost:8000/api/books?search=world
+
+**Behaviour:**
+- Returns books whose title includes `"world"` (case-insensitive).
+- If no `search` parameter is provided, **all books are returned**.
+
+---
+
+### 💷 2. Filter by Price Range
+
+Specify a minimum and/or maximum price.
+
+**Examples:**
+
+Filter books priced **between £5 and £10**:
+GET http://localhost:8000/api/books?minprice=5&max_price=10
+
+Books **cheaper than £10**:
+GET http://localhost:8000/api/books?max_price=10
+
+Books **more than £5**:
+GET http://localhost:8000/api/books?minprice=5
+
+**Behaviour:**
+- Returns books within the provided price range.
+- If no price query parameters are given, **all books are returned**.
+
+---
+
+### 🔃 3. Sort Results
+
+Sort returned books by either **name** or **price**.
+
+**Examples:**
+
+Sort by name:
+GET http://localhost:8000/api/books?sort=name
+
+Sort by price:
+GET http://localhost:8000/api/books?sort=price
+
+**Behaviour:**
+- Sorting is optional.
+- Without a sort parameter, results remain in default order.
+
+---
+
+### 🧩 Combined Example
+
+You can combine all parameters:
+GET http://localhost:8000/api/books?search=world&minprice=5&maxprice=20&sort=price
+
+This performs:
+- Keyword search (`search`)
+- Price filtering (`minprice` + `maxprice`)
+- Sorting (`sort`)
