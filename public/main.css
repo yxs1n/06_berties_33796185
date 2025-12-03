@@ -55,8 +55,19 @@ a:link {
 
 /* Styling for weather list items */
 
+.weather-container {
+  margin: 20px 0;
+  background-color: grey;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
 .weather-list {
    list-style-type: none;
+   background-color: rgb(52, 52, 52);
 }
 
 #city-name {
@@ -70,4 +81,23 @@ a:link {
     font-size: 20px;
     margin: 5px 0;
     color: rgb(243, 0, 73);
+}
+
+.change-city-container {
+  margin: 20px 0;
+  background-color: grey;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.change-city-form {
+  background-color: rgb(52, 52, 52);
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  margin: 20px 0;
 }
