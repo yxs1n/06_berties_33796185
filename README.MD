@@ -257,5 +257,5 @@ GET http://localhost:8000/api/books?search=world&minprice=5&maxprice=20&sort=pri
 
 This performs:
 - Keyword search (`search`)
-- Price filtering (`minprice` + `maxprice`)
+- Price filtering (`minprice` + `max_price`)
 - Sorting (`sort`)
